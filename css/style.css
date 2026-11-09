@@ -140,7 +140,7 @@ main { margin-top: -2.5rem; padding-bottom: 1rem; }
 }
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   align-items: stretch;
 }
@@ -312,9 +312,6 @@ footer a { font-weight: 600; }
   box-shadow: 0 1px 4px rgba(0, 0, 0, .18);
 }
 
-@media (max-width: 56rem) {
-  .project-grid { grid-template-columns: 1fr 1fr; }
-}
 @media (max-width: 40rem) {
   .brand strong { font-size: 1.25rem; }
   .brand { gap: .6rem; }
