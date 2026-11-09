@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt" data-lang="pt" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ESPManiacs — Home Assistant sem nuvem</title>
+  <meta name="description" content="Firmware ESPHome com instalador web: ar condicionado, rega Hunter e bomba de calor Daikin Altherma no Home Assistant. Sem nuvem.">
+  <meta name="theme-color" content="#1784F7">
+  <script>
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      if (t !== 'dark' && t !== 'light') {
+        t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="top">
+        <a class="brand" href="#top" id="top">
+          <span>
+            <strong>ESPManiacs</strong>
+            <small>
+              <span class="pt">Firmware ESPHome · instalador web</span>
+              <span class="en">ESPHome firmware · web installer</span>
+            </small>
+          </span>
+        </a>
+        <button type="button" class="theme" id="theme-toggle" aria-label="Mudar para modo escuro">
+          <span class="moon" aria-hidden="true">☾</span>
+          <span class="sun" aria-hidden="true">☀</span>
+        </button>
+        <div class="lang" role="group" aria-label="Language">
+          <button type="button" data-set="pt" aria-pressed="true">PT</button>
+          <button type="button" data-set="en" aria-pressed="false">EN</button>
+        </div>
+      </div>
+      <p class="pitch">
+        <span class="pt">Liga os teus aparelhos ao Home Assistant sem nuvem. Escolhe um projeto, instala pelo browser e fica com controlo local.</span>
+        <span class="en">Connect your devices to Home Assistant with no cloud. Pick a project, install from your browser, keep control local.</span>
+      </p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="section" aria-labelledby="projects-title">
+      <h2 id="projects-title" class="section-title">
+        <span class="pt">Projetos</span>
+        <span class="en">Projects</span>
+      </h2>
+      <p class="section-lead">
+        <span class="pt">Três firmwares prontos a instalar. Abre o instalador no Chrome ou Edge, liga por USB e carrega em Instalar.</span>
+        <span class="en">Three ready-to-flash firmwares. Open the installer in Chrome or Edge, plug in by USB, and hit Install.</span>
+      </p>
+
+      <div class="project-grid">
+        <!-- ESPHome_AC -->
+        <article class="card project-card">
+          <div class="photo">
+            <img class="logo-badge" src="img/badge-ac.png" width="64" height="64" alt="Logo ESPHome_AC" loading="lazy">
+            <img
+              src="img/ac-social.png"
+              data-fallback="https://raw.githubusercontent.com/skydoy/ESPHome_AC/main/docs/social-preview.png"
+              alt="ESPHome_AC — Hisense AC no Home Assistant"
+              loading="lazy"
+              width="640"
+              height="320">
+          </div>
+          <div class="card-body">
+            <h3>ESPHome_AC</h3>
+            <p class="pitch-line">
+              <span class="pt">O teu ar condicionado no Home Assistant. Liga por USB, carrega em Instalar, feito. Sem YAML.</span>
+              <span class="en">Your air conditioner in Home Assistant. Plug in by USB, click Install, done. No YAML.</span>
+            </p>
+            <p class="note-line">
+              <span class="pt">Hisense AEH-W4x / AEH-W41H1 · M5StickC Plus2 ou ATOM Lite.</span>
+              <span class="en">Hisense AEH-W4x / AEH-W41H1 · M5StickC Plus2 or ATOM Lite.</span>
+            </p>
+            <div class="actions">
+              <a class="btn" href="https://skydoy.github.io/ESPHome_AC/" target="_blank" rel="noopener">
+                <span class="pt">Instalar</span><span class="en">Install</span>
+              </a>
+              <a class="btn btn-ghost pt" href="https://github.com/skydoy/ESPHome_AC/blob/main/README.pt.md" target="_blank" rel="noopener">Documentação</a>
+              <a class="btn btn-ghost en" href="https://github.com/skydoy/ESPHome_AC#readme" target="_blank" rel="noopener">Documentation</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- ESPHOME_Hunter -->
+        <article class="card project-card">
+          <div class="photo">
+            <img class="logo-badge" src="img/badge-hunter.png" width="64" height="64" alt="Logo ESPHOME_Hunter" loading="lazy">
+            <img
+              src="img/hunter-wiring.png"
+              data-fallback="https://raw.githubusercontent.com/skydoy/ESPHOME_Hunter/main/docs/img/wiring.png"
+              alt="ESPHOME_Hunter — diagrama de ligações Hunter X-Core"
+              loading="lazy"
+              width="640"
+              height="320">
+          </div>
+          <div class="card-body">
+            <h3>ESPHOME_Hunter</h3>
+            <p class="pitch-line">
+              <span class="pt">A tua rega Hunter X-Core no Home Assistant. Liga por USB, carrega em Instalar, feito.</span>
+              <span class="en">Your Hunter X-Core sprinkler controller in Home Assistant. Plug in by USB, click Install, done.</span>
+            </p>
+            <p class="note-line">
+              <span class="pt">Compatível com as placas Hunter_LS v1/v2.</span>
+              <span class="en">Works with Hunter_LS v1/v2 boards.</span>
+            </p>
+            <div class="actions">
+              <a class="btn" href="https://skydoy.github.io/ESPHOME_Hunter/" target="_blank" rel="noopener">
+                <span class="pt">Instalar</span><span class="en">Install</span>
+              </a>
+              <a class="btn btn-ghost" href="https://github.com/skydoy/ESPHOME_Hunter#readme" target="_blank" rel="noopener">
+                <span class="pt">Documentação</span><span class="en">Documentation</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- esphome-altherma -->
+        <article class="card project-card">
+          <div class="photo">
+            <img class="logo-badge" src="img/badge-altherma.png" width="64" height="64" alt="Logo esphome-altherma" loading="lazy">
+            <img
+              src="img/altherma-m5stack.jpg"
+              data-fallback="https://raw.githubusercontent.com/skydoy/esphome-altherma/main/docs/social-preview.png"
+              alt="esphome-altherma — placa M5Stack ligada à bomba de calor"
+              loading="lazy"
+              width="640"
+              height="320"
+              onerror="this.onerror=null;this.src=this.dataset.fallback;">
+          </div>
+          <div class="card-body">
+            <h3>esphome-altherma</h3>
+            <p class="pitch-line">
+              <span class="pt">Liga a tua bomba de calor Daikin Altherma ao Home Assistant com uma ESP32 — instalas pelo browser em 3 passos.</span>
+              <span class="en">Connect your Daikin Altherma heat pump to Home Assistant with an ESP32 — install from your browser in 3 steps.</span>
+            </p>
+            <p class="note-line">
+              <span class="pt">Conector de serviço X10A · sem nuvem, sem MQTT.</span>
+              <span class="en">X10A service connector · no cloud, no MQTT.</span>
+            </p>
+            <div class="actions">
+              <a class="btn" href="https://skydoy.github.io/esphome-altherma/" target="_blank" rel="noopener">
+                <span class="pt">Instalar</span><span class="en">Install</span>
+              </a>
+              <a class="btn btn-ghost pt" href="https://github.com/skydoy/esphome-altherma/blob/main/docs/visao-geral.md" target="_blank" rel="noopener">Documentação</a>
+              <a class="btn btn-ghost en" href="https://github.com/skydoy/esphome-altherma/blob/main/docs/overview.md" target="_blank" rel="noopener">Documentation</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="loja" aria-labelledby="shop-title">
+      <h2 id="shop-title" class="section-title">
+        <span class="pt">Loja</span>
+        <span class="en">Shop</span>
+      </h2>
+      <p class="section-lead">
+        <span class="pt">Kits montados por Tiago — placa, cabos e caixas prontas a instalar. Ainda não há vendas online; estes cartões são só exemplos.</span>
+        <span class="en">Kits assembled by Tiago — board, cables and cases ready to install. Online sales are not open yet; these cards are examples only.</span>
+      </p>
+
+      <div class="shop-grid">
+        <article class="card shop-card example">
+          <div class="badge">
+            <span class="pt">Exemplo · Em breve</span>
+            <span class="en">Example · Coming soon</span>
+          </div>
+          <div class="shop-photo placeholder" aria-hidden="true">❄</div>
+          <div class="card-body">
+            <h3>
+              <span class="pt">Kit ESPHome_AC</span>
+              <span class="en">ESPHome_AC kit</span>
+            </h3>
+            <p>
+              <span class="pt">M5StickC Plus2 + RS485 Hat, cabo USB-C e guia rápido para Hisense AEH-W4x.</span>
+              <span class="en">M5StickC Plus2 + RS485 Hat, USB-C cable and quick guide for Hisense AEH-W4x.</span>
+            </p>
+            <p class="price"><span aria-hidden="true">—</span> <span class="pt">preço a definir</span><span class="en">price TBD</span></p>
+            <button type="button" class="btn btn-disabled" disabled>
+              <span class="pt">Em breve</span><span class="en">Coming soon</span>
+            </button>
+          </div>
+        </article>
+
+        <article class="card shop-card example">
+          <div class="badge">
+            <span class="pt">Exemplo · Em breve</span>
+            <span class="en">Example · Coming soon</span>
+          </div>
+          <div class="shop-photo placeholder" aria-hidden="true">💧</div>
+          <div class="card-body">
+            <h3>
+              <span class="pt">Kit Hunter_LS + firmware</span>
+              <span class="en">Hunter_LS + firmware kit</span>
+            </h3>
+            <p>
+              <span class="pt">Placa Hunter_LS (v1 ou v2) pronta para o X-Core, com ESP já testada.</span>
+              <span class="en">Hunter_LS board (v1 or v2) ready for the X-Core, with a pre-tested ESP.</span>
+            </p>
+            <p class="price"><span aria-hidden="true">—</span> <span class="pt">preço a definir</span><span class="en">price TBD</span></p>
+            <button type="button" class="btn btn-disabled" disabled>
+              <span class="pt">Em breve</span><span class="en">Coming soon</span>
+            </button>
+          </div>
+        </article>
+
+        <article class="card shop-card example">
+          <div class="badge">
+            <span class="pt">Exemplo · Em breve</span>
+            <span class="en">Example · Coming soon</span>
+          </div>
+          <div class="shop-photo placeholder" aria-hidden="true">♨</div>
+          <div class="card-body">
+            <h3>
+              <span class="pt">Kit Altherma X10A</span>
+              <span class="en">Altherma X10A kit</span>
+            </h3>
+            <p>
+              <span class="pt">ESP32 + cabo para o conector X10A da Daikin Altherma, pronto a instalar pelo browser.</span>
+              <span class="en">ESP32 + cable for the Daikin Altherma X10A connector, ready for browser install.</span>
+            </p>
+            <p class="price"><span aria-hidden="true">—</span> <span class="pt">preço a definir</span><span class="en">price TBD</span></p>
+            <button type="button" class="btn btn-disabled" disabled>
+              <span class="pt">Em breve</span><span class="en">Coming soon</span>
+            </button>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <p>
+      <span class="pt">Feito por <a href="https://github.com/skydoy" target="_blank" rel="noopener">skydoy</a> · org <a href="https://github.com/ESPManiacs" target="_blank" rel="noopener">ESPManiacs</a>. Firmware ESPHome com instalador web.</span>
+      <span class="en">Built by <a href="https://github.com/skydoy" target="_blank" rel="noopener">skydoy</a> · org <a href="https://github.com/ESPManiacs" target="_blank" rel="noopener">ESPManiacs</a>. ESPHome firmware with a web installer.</span>
+    </p>
+    <p class="support">
+      <span class="pt">Gostas? Ajuda-me a fazer algo ainda melhor:</span>
+      <span class="en">Like it? Help me build something better:</span>
+      <a href="https://ko-fi.com/skydoy" target="_blank" rel="noopener">☕ Ko-fi</a>
+      <a href="https://buymeacoffee.com/skydoy" target="_blank" rel="noopener">🍪 Buy Me a Coffee</a>
+    </p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
