@@ -139,8 +139,7 @@ main { margin-top: -2.5rem; padding-bottom: 1rem; }
   box-shadow: var(--shadow);
   overflow: hidden;
 }
-.project-grid,
-.shop-grid {
+.project-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
@@ -261,47 +260,31 @@ html[data-theme=dark] .project-card .photo > .logo-badge {
   filter: none;
 }
 
-.shop-card {
-  position: relative;
+.shop-soon {
   display: flex;
-  flex-direction: column;
-  height: 100%;
+  align-items: stretch;
+  max-width: 36rem;
+  overflow: hidden;
 }
-.shop-card .badge {
-  position: absolute;
-  top: .7rem;
-  left: .7rem;
-  z-index: 1;
-  font-size: .75rem;
+.shop-soon-accent {
+  width: .4rem;
+  flex: none;
+  background: linear-gradient(180deg, var(--g1), var(--g2));
+}
+.shop-soon-body {
+  padding: 1.25rem 1.35rem 1.35rem;
+}
+.shop-soon-title {
+  margin: 0 0 .35rem;
+  font-size: 1.15rem;
   font-weight: 700;
-  letter-spacing: .02em;
-  text-transform: uppercase;
-  background: #fff;
-  color: #0f63c4;
-  border-radius: 999px;
-  padding: .25rem .65rem;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, .15);
+  color: var(--text);
 }
-html[data-theme=dark] .shop-card .badge {
-  background: #1b2a44;
-  color: #9fd0ff;
+.shop-soon-text {
+  margin: 0;
+  color: var(--muted);
+  max-width: 32rem;
 }
-.shop-photo.placeholder {
-  aspect-ratio: 16 / 10;
-  display: grid;
-  place-items: center;
-  font-size: 2.6rem;
-  background: linear-gradient(135deg, color-mix(in srgb, var(--g1) 35%, var(--card)), color-mix(in srgb, var(--g2) 25%, var(--card)));
-  border-bottom: 1px solid var(--line);
-}
-.shop-card .card-body { flex: 1; display: flex; flex-direction: column; }
-.shop-card .card-body p { color: var(--muted); margin: 0 0 .6rem; }
-.shop-card .price {
-  font-weight: 700;
-  color: var(--text) !important;
-  margin-bottom: .85rem !important;
-}
-.shop-card .btn { width: 100%; margin-top: auto; }
 
 footer {
   color: var(--muted);
@@ -331,8 +314,7 @@ footer a { font-weight: 600; }
 }
 
 @media (max-width: 56rem) {
-  .project-grid,
-  .shop-grid { grid-template-columns: 1fr 1fr; }
+  .project-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 40rem) {
   .top {
@@ -350,7 +332,6 @@ footer a { font-weight: 600; }
   .brand small { font-size: .85rem; line-height: 1.25; }
   .brand small .sep { display: none; }
   .brand small .sub2 { display: block; }
-  .project-grid,
-  .shop-grid { grid-template-columns: 1fr; }
+  .project-grid { grid-template-columns: 1fr; }
   .pitch { font-size: 1.05rem; }
 }
