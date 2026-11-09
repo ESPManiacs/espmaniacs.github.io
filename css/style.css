@@ -137,6 +137,7 @@ main { margin-top: -2.5rem; padding-bottom: 1rem; }
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
+  align-items: stretch;
 }
 .project-card .photo {
   position: relative;
@@ -176,14 +177,24 @@ html[data-theme=dark] .project-card .photo > .logo-badge {
     bottom: .55rem;
   }
 }
+.project-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 .card-body { padding: 1.1rem 1.15rem 1.15rem; }
+.project-card .card-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
 .card-body h3 {
   margin: 0 0 .45rem;
   font-size: 1.15rem;
 }
 .pitch-line { margin: 0 0 .45rem; }
 .note-line {
-  margin: 0 0 .9rem;
+  margin: 0 0 .75rem;
   color: var(--muted);
   font-size: .92rem;
 }
@@ -191,6 +202,18 @@ html[data-theme=dark] .project-card .photo > .logo-badge {
   display: flex;
   flex-wrap: wrap;
   gap: .5rem;
+}
+.project-card .actions {
+  margin-top: auto;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+.project-card .actions .btn {
+  flex: 1 1 0;
+  width: 0; /* equal share with flex-grow; overrides content intrinsic width */
+  min-width: 0;
+  white-space: nowrap;
+  padding: .65rem .75rem;
 }
 
 .btn {
@@ -202,9 +225,10 @@ html[data-theme=dark] .project-card .photo > .logo-badge {
   font-weight: 700;
   color: #fff;
   text-decoration: none;
-  border: 0;
+  border: 1.5px solid transparent;
   border-radius: 12px;
   padding: .65rem 1.15rem;
+  min-height: 2.75rem;
   cursor: pointer;
   background: linear-gradient(135deg, var(--g1), var(--g2));
   box-shadow: 0 4px 14px rgba(23, 132, 247, .35);
@@ -230,7 +254,12 @@ html[data-theme=dark] .project-card .photo > .logo-badge {
   filter: none;
 }
 
-.shop-card { position: relative; display: flex; flex-direction: column; }
+.shop-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 .shop-card .badge {
   position: absolute;
   top: .7rem;
