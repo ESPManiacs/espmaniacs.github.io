@@ -3,228 +3,255 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ESPManiacs — Home Assistant sem nuvem</title>
-  <meta name="description" content="Firmware ESPHome com instalador web: ar condicionado, rega Hunter e bomba de calor Daikin Altherma no Home Assistant. Sem nuvem.">
-  <meta name="theme-color" content="#1784F7">
+  <title>ESPManiacs — A tua casa é tua</title>
+  <meta name="description" content="Firmware ESPHome com instalador web para ar condicionado, rega Hunter, bomba de calor Daikin Altherma, piso radiante e mostradores para o carro. Controlo local, sem nuvem.">
+  <meta name="theme-color" content="#f7f3ea">
   <link rel="icon" href="favicon.ico" sizes="16x16 32x32">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
-  <link rel="icon" href="favicon-16.png" type="image/png" sizes="16x16">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preload" href="fonts/fraunces-latin-wght-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <script>
     (function () {
       var t = null;
       try { t = localStorage.getItem('theme'); } catch (e) {}
-      if (t !== 'dark' && t !== 'light') {
-        t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      }
+      if (t !== 'dark' && t !== 'light') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       document.documentElement.dataset.theme = t;
+      document.documentElement.classList.add('js');
     })();
   </script>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header>
-    <div class="wrap">
-      <div class="top">
-        <a class="brand" href="#top" id="top">
-          <img class="brand-mark" src="img/logo/espmaniacs-mark-white.svg" width="48" height="48" alt="">
-          <span>
-            <strong>ESPManiacs</strong>
-            <small>
-              <span class="pt">Firmware ESPHome<span class="sep"> · </span><span class="sub2">instalador web</span></span>
-              <span class="en">ESPHome firmware<span class="sep"> · </span><span class="sub2">web installer</span></span>
-            </small>
-          </span>
-        </a>
-        <div class="lang" role="group" aria-label="Language">
-          <button type="button" data-set="pt" aria-pressed="true">PT</button>
-          <button type="button" data-set="en" aria-pressed="false">EN</button>
-          <button type="button" class="theme" id="theme-toggle" aria-label="Mudar para modo escuro"><svg class="moon" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="sun" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2" fill="currentColor" stroke="none"/><path d="M12 1.8v2.6M12 19.6v2.6M1.8 12h2.6M19.6 12h2.6M4.8 4.8l1.8 1.8M17.4 17.4l1.8 1.8M4.8 19.2l1.8-1.8M17.4 6.6l1.8-1.8"/></svg></button>
-        </div>
+  <header class="nav">
+    <div class="nav-in">
+      <a class="brand" href="#top">
+        <img class="mark mark-light" src="img/logo/espmaniacs-mark-light.svg" width="34" height="34" alt="">
+        <img class="mark mark-dark" src="img/logo/espmaniacs-mark-dark.svg" width="34" height="34" alt="">
+        <strong>ESPManiacs</strong>
+      </a>
+      <nav class="links" aria-label="Secções">
+        <a href="#projetos"><span class="pt">Projetos</span><span class="en">Projects</span></a>
+        <a href="#como"><span class="pt">Como funciona</span><span class="en">How it works</span></a>
+        <a href="#faq"><span class="pt">Perguntas</span><span class="en">FAQ</span></a>
+        <a href="#loja"><span class="pt">Loja</span><span class="en">Shop</span></a>
+      </nav>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-set="pt" aria-pressed="true">PT</button>
+        <button type="button" data-set="en" aria-pressed="false">EN</button>
+        <button type="button" class="theme" id="theme-toggle" aria-label="Mudar para modo escuro"><svg class="moon" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="sun" aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2" fill="currentColor" stroke="none"/><path d="M12 1.8v2.6M12 19.6v2.6M1.8 12h2.6M19.6 12h2.6M4.8 4.8l1.8 1.8M17.4 17.4l1.8 1.8M4.8 19.2l1.8-1.8M17.4 6.6l1.8-1.8"/></svg></button>
       </div>
-      <p class="pitch">
-        <span class="pt">Liga os teus aparelhos ao Home Assistant sem nuvem. Escolhe um projeto, instala pelo browser e fica com controlo local.</span>
-        <span class="en">Connect your devices to Home Assistant with no cloud. Pick a project, install from your browser, keep control local.</span>
-      </p>
     </div>
   </header>
 
-  <main class="wrap">
-    <section class="section" aria-labelledby="projects-title">
-      <h2 id="projects-title" class="section-title">
-        <span class="pt">Projetos</span>
-        <span class="en">Projects</span>
-      </h2>
-      <p class="section-lead">
-        <span class="pt">Quatro projetos prontos a instalar. Abre o instalador no Chrome ou Edge, liga por USB e carrega em Instalar.</span>
-        <span class="en">Four projects ready to install. Open the installer in Chrome or Edge, plug in by USB, and hit Install.</span>
-      </p>
-
-      <div class="project-grid">
-        <!-- ESPHome_AC -->
-        <article class="card project-card">
-          <div class="photo">
-            <img class="logo-badge" src="img/badge-ac.png" width="64" height="64" alt="Logo ESPHome_AC" loading="lazy">
-            <img
-              src="img/ac-social.png"
-              data-fallback="https://raw.githubusercontent.com/skydoy/ESPHome_AC/main/docs/social-preview.png"
-              alt="ESPHome_AC — Hisense AC no Home Assistant"
-              loading="lazy"
-              width="640"
-              height="320">
-          </div>
-          <div class="card-body">
-            <h3>ESPHome_AC</h3>
-            <p class="pitch-line">
-              <span class="pt">O teu ar condicionado no Home Assistant. Liga por USB, carrega em Instalar, feito. Sem YAML.</span>
-              <span class="en">Your air conditioner in Home Assistant. Plug in by USB, click Install, done. No YAML.</span>
-            </p>
-            <p class="note-line">
-              <span class="pt">Hisense AEH-W4x / AEH-W41H1 · M5StickC Plus2 ou ATOM Lite.</span>
-              <span class="en">Hisense AEH-W4x / AEH-W41H1 · M5StickC Plus2 or ATOM Lite.</span>
-            </p>
-            <div class="actions">
-              <a class="btn" href="https://skydoy.github.io/ESPHome_AC/" target="_blank" rel="noopener">
-                <span class="pt">Instalar</span><span class="en">Install</span>
-              </a>
-              <a class="btn btn-ghost pt" href="https://github.com/skydoy/ESPHome_AC/blob/main/README.pt.md" target="_blank" rel="noopener">Documentação</a>
-              <a class="btn btn-ghost en" href="https://github.com/skydoy/ESPHome_AC#readme" target="_blank" rel="noopener">Documentation</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- ESPHOME_Hunter -->
-        <article class="card project-card">
-          <div class="photo">
-            <img class="logo-badge" src="img/badge-hunter.png" width="64" height="64" alt="Logo ESPHOME_Hunter" loading="lazy">
-            <img
-              src="img/hunter-wiring.png"
-              data-fallback="https://raw.githubusercontent.com/skydoy/ESPHOME_Hunter/main/docs/img/wiring.png"
-              alt="ESPHOME_Hunter — diagrama de ligações Hunter X-Core"
-              loading="lazy"
-              width="640"
-              height="320">
-          </div>
-          <div class="card-body">
-            <h3>ESPHOME_Hunter</h3>
-            <p class="pitch-line">
-              <span class="pt">A tua rega Hunter X-Core no Home Assistant. Liga por USB, carrega em Instalar, feito.</span>
-              <span class="en">Your Hunter X-Core sprinkler controller in Home Assistant. Plug in by USB, click Install, done.</span>
-            </p>
-            <p class="note-line">
-              <span class="pt">Compatível com as placas Hunter_LS v1/v2.</span>
-              <span class="en">Works with Hunter_LS v1/v2 boards.</span>
-            </p>
-            <div class="actions">
-              <a class="btn" href="https://skydoy.github.io/ESPHOME_Hunter/" target="_blank" rel="noopener">
-                <span class="pt">Instalar</span><span class="en">Install</span>
-              </a>
-              <a class="btn btn-ghost pt" href="https://skydoy.github.io/ESPHOME_Hunter/docs/pt/" target="_blank" rel="noopener">Documentação</a>
-              <a class="btn btn-ghost en" href="https://skydoy.github.io/ESPHOME_Hunter/docs/" target="_blank" rel="noopener">Documentation</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- ESPHome_Altherma -->
-        <article class="card project-card">
-          <div class="photo">
-            <img class="logo-badge" src="img/badge-altherma.png" width="64" height="64" alt="Logo ESPHome_Altherma" loading="lazy">
-            <img
-              src="img/altherma-social.png"
-              data-fallback="https://raw.githubusercontent.com/skydoy/ESPHome_Altherma/main/docs/social-preview.png"
-              alt="ESPHome_Altherma — bomba de calor Daikin Altherma no Home Assistant"
-              loading="lazy"
-              width="640"
-              height="320">
-          </div>
-          <div class="card-body">
-            <h3>ESPHome_Altherma</h3>
-            <p class="pitch-line">
-              <span class="pt">Liga a tua bomba de calor Daikin Altherma ao Home Assistant com uma ESP32 — instalas pelo browser em 3 passos.</span>
-              <span class="en">Connect your Daikin Altherma heat pump to Home Assistant with an ESP32 — install from your browser in 3 steps.</span>
-            </p>
-            <p class="note-line">
-              <span class="pt">Conector de serviço X10A · sem nuvem, sem MQTT.</span>
-              <span class="en">X10A service connector · no cloud, no MQTT.</span>
-            </p>
-            <div class="actions">
-              <a class="btn" href="https://skydoy.github.io/ESPHome_Altherma/" target="_blank" rel="noopener">
-                <span class="pt">Instalar</span><span class="en">Install</span>
-              </a>
-              <a class="btn btn-ghost pt" href="https://github.com/skydoy/ESPHome_Altherma/blob/main/docs/visao-geral.md" target="_blank" rel="noopener">Documentação</a>
-              <a class="btn btn-ghost en" href="https://github.com/skydoy/ESPHome_Altherma/blob/main/docs/overview.md" target="_blank" rel="noopener">Documentation</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Open Gauge -->
-        <article class="card project-card">
-          <div class="photo">
-            <img class="logo-badge" src="img/badge-opengauge.png" width="64" height="64" alt="Logo Open Gauge" loading="lazy">
-            <img
-              src="img/opengauge-social.png"
-              data-fallback="https://repository-images.githubusercontent.com/1444011622/fd7474ff-86f8-487a-8d67-7f15764fc446"
-              alt="Open Gauge — mostradores digitais sem fios para o carro"
-              loading="lazy"
-              width="640"
-              height="320">
-          </div>
-          <div class="card-body">
-            <h3>Open Gauge</h3>
-            <p class="pitch-line">
-              <span class="pt">Mostradores digitais sem fios para o teu carro, feitos com ESP32.</span>
-              <span class="en">Wireless digital gauges for your car, built on ESP32.</span>
-            </p>
-            <p class="note-line">
-              <span class="pt">Gateway ESP32 (CAN só de leitura) + ecrã M5 Dial ou CrowPanel 1.28 · imagens de demonstração, só bancada.</span>
-              <span class="en">ESP32 gateway (read-only CAN) + M5 Dial or CrowPanel 1.28 display · demo images, bench only.</span>
-            </p>
-            <div class="actions">
-              <a class="btn" href="https://skydoy.github.io/OpenGauge/" target="_blank" rel="noopener">
-                <span class="pt">Instalar</span><span class="en">Install</span>
-              </a>
-              <a class="btn btn-ghost pt" href="https://github.com/skydoy/OpenGauge/blob/main/README.pt.md" target="_blank" rel="noopener">Documentação</a>
-              <a class="btn btn-ghost en" href="https://github.com/skydoy/OpenGauge#readme" target="_blank" rel="noopener">Documentation</a>
-            </div>
-          </div>
-        </article>
+  <main id="top">
+    <section class="hero">
+      <p class="pill reveal"><i aria-hidden="true"></i><span class="pt">Firmware ESPHome · instalador web · sem nuvem</span><span class="en">ESPHome firmware · web installer · no cloud</span></p>
+      <h1 class="serif reveal"><span class="pt">A tua casa é tua. Os teus <em>dados</em> também.</span><span class="en">Your home is yours. So is your <em>data</em>.</span></h1>
+      <p class="hero-sub reveal"><span class="pt">Cada aparelho chega preso a uma app, a uma conta e a um servidor que não controlas. Os projetos ESPManiacs cortam esse fio e põem tudo a falar com o teu Home Assistant, dentro de casa.</span><span class="en">Every device arrives tied to an app, an account and a server you don't control. ESPManiacs projects cut that cord and put everything talking to your Home Assistant, inside your home.</span></p>
+      <div class="hero-cta reveal">
+        <a class="btn" href="#projetos"><span class="pt">Ver os projetos</span><span class="en">See the projects</span><span class="btn-ico"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+        <a class="btn btn-ghost" href="#como"><span class="pt">Como funciona</span><span class="en">How it works</span></a>
+      </div>
+      <div class="hero-gallery reveal" aria-hidden="true">
+        <div class="gal-track"><figure class="ph ph-card"><img src="assets/projects/ac.jpg" alt="" width="1280" height="640"></figure><figure class="ph ph-card"><img src="assets/projects/hunter.jpg" alt="" width="1280" height="640"></figure><figure class="ph ph-card"><img src="assets/projects/altherma.jpg" alt="" width="1280" height="640"></figure><figure class="ph ph-card"><img src="assets/projects/ufh.jpg" alt="" width="1280" height="640"></figure><figure class="ph ph-card"><img src="assets/projects/opengauge.jpg" alt="" width="1280" height="640"></figure><figure class="ph ph-card"><img src="assets/projects/ac.jpg" alt="" width="1280" height="640"></figure><figure class="ph ph-card"><img src="assets/projects/hunter.jpg" alt="" width="1280" height="640"></figure><figure class="ph ph-card"><img src="assets/projects/altherma.jpg" alt="" width="1280" height="640"></figure><figure class="ph ph-card"><img src="assets/projects/ufh.jpg" alt="" width="1280" height="640"></figure><figure class="ph ph-card"><img src="assets/projects/opengauge.jpg" alt="" width="1280" height="640"></figure></div>
+      </div>
+      <div class="float-card reveal">
+        <span><b>0</b><span class="pt">nuvens</span><span class="en">clouds</span></span>
+        <span><b>0</b><span class="pt">contas</span><span class="en">accounts</span></span>
+        <span><b>100%</b><span class="pt">local</span><span class="en">local</span></span>
+        <span><b>5</b><span class="pt">projetos</span><span class="en">projects</span></span>
       </div>
     </section>
 
-    <section class="section" id="loja" aria-labelledby="shop-title">
-      <h2 id="shop-title" class="section-title">
-        <span class="pt">Loja</span>
-        <span class="en">Shop</span>
-      </h2>
-      <div class="card shop-soon" role="status">
-        <div class="shop-soon-accent" aria-hidden="true"></div>
-        <div class="shop-soon-body">
-          <p class="shop-soon-title">
-            <span class="pt">Loja em breve</span>
-            <span class="en">Shop coming soon</span>
-          </p>
-          <p class="shop-soon-text">
-            <span class="pt">Kits montados por mim, prontos a instalar. Brevemente aqui.</span>
-            <span class="en">Kits assembled by me, ready to install. Coming soon.</span>
-          </p>
+    <section class="services" id="projetos" aria-labelledby="h-projetos">
+      <h2 id="h-projetos" class="sr-only"><span class="pt">Projetos</span><span class="en">Projects</span></h2>
+      <div class="svc-grid">
+        <a class="svc reveal" href="#ac">
+          <span class="svc-ico"><svg class="ico" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M4.9 6l14.2 12M19.1 6 4.9 18M9 3.5l3 2 3-2M9 20.5l3-2 3 2M2.6 9.3l3.6.4 1.3-3.3M21.4 14.7l-3.6-.4-1.3 3.3M21.4 9.3l-3.6.4-1.3-3.3M2.6 14.7l3.6-.4 1.3 3.3"/></svg></span>
+          <h3><span class="pt">Ar condicionado</span><span class="en">Air conditioning</span></h3>
+          <p><span class="pt">O AC responde ao Home Assistant, não a uma app.</span><span class="en">Your AC answers to Home Assistant, not an app.</span></p>
+        </a>
+        <a class="svc reveal" href="#hunter">
+          <span class="svc-ico"><svg class="ico" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3.5 4.4 6 8 6 11a6 6 0 0 1-12 0c0-3 2.5-6.6 6-11z"/><path d="M9.5 15.5a2.6 2.6 0 0 0 2.5 2"/></svg></span>
+          <h3><span class="pt">Rega</span><span class="en">Irrigation</span></h3>
+          <p><span class="pt">A rega decide com a casa, não com o relógio.</span><span class="en">Watering follows your home, not a clock.</span></p>
+        </a>
+        <a class="svc reveal" href="#altherma">
+          <span class="svc-ico"><svg class="ico" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="10" cy="12" r="4"/><path d="M10 8v8M6 12h8M17 9h1.5M17 12h1.5M17 15h1.5"/></svg></span>
+          <h3><span class="pt">Bomba de calor</span><span class="en">Heat pump</span></h3>
+          <p><span class="pt">Os dados da Daikin Altherma ficam em casa.</span><span class="en">Your Daikin Altherma data stays home.</span></p>
+        </a>
+        <a class="svc reveal" href="#ufh">
+          <span class="svc-ico"><svg class="ico" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18"/><path d="M5 16c2-2 3 2 5 0s3 2 5 0 3 2 4 0"/><path d="M8 12c0-2 2-2 2-4M12 12c0-2 2-2 2-4M16 12c0-2 2-2 2-4"/></svg></span>
+          <h3><span class="pt">Piso radiante</span><span class="en">Underfloor heating</span> <span class="tag"><span class="pt">Novo</span><span class="en">New</span></span></h3>
+          <p><span class="pt">Zonas, bomba e pedido de calor por cabo de rede.</span><span class="en">Zones, pump and heat demand over a network cable.</span></p>
+        </a>
+        <a class="svc reveal" href="#opengauge">
+          <span class="svc-ico"><svg class="ico" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17a8 8 0 1 1 16 0"/><path d="M12 17l4.5-5"/><circle cx="12" cy="17" r="1.4"/><path d="M6.3 11.3l1 .8M12 9v1.3M17.7 11.3l-1 .8"/></svg></span>
+          <h3><span class="pt">Mostradores para o carro</span><span class="en">Car gauges</span> <span class="tag"><span class="pt">Bancada</span><span class="en">Bench</span></span></h3>
+          <p><span class="pt">Os dados do carro em mostradores sem fios.</span><span class="en">Your car's data on wireless gauges.</span></p>
+        </a>
+      </div>
+    </section>
+
+    <section class="facts">
+      <div class="fact reveal"><p class="fact-k"><span class="pt">Instalação</span><span class="en">Install</span></p><p><span class="pt">Pelo browser, em três passos, com a placa ligada por USB.</span><span class="en">From the browser, in three steps, with the board plugged in by USB.</span></p></div>
+      <div class="fact reveal"><p class="fact-k"><span class="pt">Controlo</span><span class="en">Control</span></p><p><span class="pt">Local, no teu Home Assistant, sem passar pela internet.</span><span class="en">Local, in your Home Assistant, without going through the internet.</span></p></div>
+      <div class="fact reveal"><p class="fact-k"><span class="pt">Código</span><span class="en">Code</span></p><p><span class="pt">Aberto e documentado, em português e em inglês.</span><span class="en">Open and documented, in Portuguese and English.</span></p></div>
+    </section>
+
+    <section class="statement">
+      <p class="serif reveal"><span class="pt">Controlo local que te devolve a <em>casa</em>. E o <em>carro</em>.</span><span class="en">Local control that gives you back your <em>home</em>. And your <em>car</em>.</span></p>
+    </section>
+
+      <section class="feature" id="ac" aria-labelledby="h-ac">
+        <div class="media reveal">
+            <figure class="ph ph-card"><img src="assets/projects/ac.jpg" alt="ESPHome_AC" loading="lazy" width="1280" height="640"></figure>
+          </div>
+        <div class="copy reveal">
+          <p class="kicker"><img src="img/badge-ac.png" width="36" height="36" alt=""><span class="num">01</span><span class="pt">Ar condicionado</span><span class="en">Air conditioning</span></p>
+          <h2 id="h-ac" class="serif"><span class="pt">O conforto da tua casa não devia depender de <em>um servidor</em>.</span><span class="en">The comfort of your home shouldn't depend on <em>a server</em>.</span></h2>
+          <p class="lead"><span class="pt">O ar condicionado chega preso a uma app e a uma conta na nuvem. O ESPHome_AC põe-no a falar diretamente com o teu Home Assistant, dentro de casa.</span><span class="en">Your air conditioner comes tied to an app and a cloud account. ESPHome_AC makes it talk straight to your Home Assistant, inside your home.</span></p>
+          <ul class="checks"><li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="pt">Sem conta nem app da marca</span><span class="en">No brand account or app</span></li><li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="pt">Instalado pelo browser, sem YAML</span><span class="en">Installed from the browser, no YAML</span></li><li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="pt">Hisense AEH-W4x / AEH-W41H1 · M5StickC Plus2 ou ATOM Lite</span><span class="en">Hisense AEH-W4x / AEH-W41H1 · M5StickC Plus2 or ATOM Lite</span></li></ul>
+          <p class="pname">ESPHome_AC</p>
+          <div class="actions"><a class="btn" href="https://skydoy.github.io/ESPHome_AC/" target="_blank" rel="noopener"><span class="pt">Instalar</span><span class="en">Install</span><span class="btn-ico"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="btn btn-ghost pt" href="https://skydoy.github.io/ESPHome_AC/docs/pt/" target="_blank" rel="noopener">Documentação</a><a class="btn btn-ghost en" href="https://skydoy.github.io/ESPHome_AC/docs/" target="_blank" rel="noopener">Documentation</a></div>
         </div>
+      </section>
+      <section class="feature flip" id="hunter" aria-labelledby="h-hunter">
+        <div class="media reveal">
+            <figure class="ph ph-card"><img src="assets/projects/hunter.jpg" alt="ESPHOME_Hunter" loading="lazy" width="1280" height="640"></figure>
+          </div>
+        <div class="copy reveal">
+          <p class="kicker"><img src="img/badge-hunter.png" width="36" height="36" alt=""><span class="num">02</span><span class="pt">Rega</span><span class="en">Irrigation</span></p>
+          <h2 id="h-hunter" class="serif"><span class="pt">A água deve cair quando faz sentido. <em>Não quando o relógio manda.</em></span><span class="en">Water should fall when it makes sense. <em>Not when the clock says so.</em></span></h2>
+          <p class="lead"><span class="pt">O programador de rega cumpre um horário fixo, chova ou faça sol. Com o ESPHOME_Hunter, a rega passa a fazer parte da casa e é o teu Home Assistant que decide.</span><span class="en">Your sprinkler controller runs a fixed schedule, rain or shine. With ESPHOME_Hunter, watering becomes part of your home and your Home Assistant decides.</span></p>
+          <ul class="checks"><li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="pt">Controla o Hunter X-Core a partir do Home Assistant</span><span class="en">Controls the Hunter X-Core from Home Assistant</span></li><li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="pt">Placas Hunter_LS v1 e v2</span><span class="en">Hunter_LS v1 and v2 boards</span></li><li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="pt">Instalado pelo browser</span><span class="en">Installed from the browser</span></li></ul>
+          <p class="pname">ESPHOME_Hunter</p>
+          <div class="actions"><a class="btn" href="https://skydoy.github.io/ESPHOME_Hunter/" target="_blank" rel="noopener"><span class="pt">Instalar</span><span class="en">Install</span><span class="btn-ico"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="btn btn-ghost pt" href="https://skydoy.github.io/ESPHOME_Hunter/docs/pt/" target="_blank" rel="noopener">Documentação</a><a class="btn btn-ghost en" href="https://skydoy.github.io/ESPHOME_Hunter/docs/" target="_blank" rel="noopener">Documentation</a></div>
+        </div>
+      </section>
+      <section class="feature" id="altherma" aria-labelledby="h-altherma">
+        <div class="media reveal">
+            <figure class="ph ph-card"><img src="assets/projects/altherma.jpg" alt="ESPHome_Altherma" loading="lazy" width="1280" height="640"></figure>
+          </div>
+        <div class="copy reveal">
+          <p class="kicker"><img src="img/badge-altherma.png" width="36" height="36" alt=""><span class="num">03</span><span class="pt">Bomba de calor</span><span class="en">Heat pump</span></p>
+          <h2 id="h-altherma" class="serif"><span class="pt">O calor da tua casa não passa pelos servidores <em>de ninguém</em>.</span><span class="en">The heat in your home doesn't pass through <em>anyone's</em> servers.</span></h2>
+          <p class="lead"><span class="pt">A bomba de calor sabe tudo sobre a tua casa. Com o ESPHome_Altherma, esses dados são lidos pelo conector de serviço e entregues diretamente ao teu Home Assistant.</span><span class="en">Your heat pump knows everything about your home. With ESPHome_Altherma that data is read from the service connector and handed straight to your Home Assistant.</span></p>
+          <ul class="checks"><li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="pt">Lê o conector de serviço X10A</span><span class="en">Reads the X10A service connector</span></li><li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="pt">Sem nuvem e sem MQTT</span><span class="en">No cloud and no MQTT</span></li><li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="pt">Instalado pelo browser em 3 passos</span><span class="en">Installed from the browser in 3 steps</span></li></ul>
+          <p class="pname">ESPHome_Altherma</p>
+          <div class="actions"><a class="btn" href="https://skydoy.github.io/ESPHome_Altherma/" target="_blank" rel="noopener"><span class="pt">Instalar</span><span class="en">Install</span><span class="btn-ico"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="btn btn-ghost pt" href="https://skydoy.github.io/ESPHome_Altherma/docs/pt/" target="_blank" rel="noopener">Documentação</a><a class="btn btn-ghost en" href="https://skydoy.github.io/ESPHome_Altherma/docs/" target="_blank" rel="noopener">Documentation</a></div>
+        </div>
+      </section>
+      <section class="feature flip" id="ufh" aria-labelledby="h-ufh">
+        <div class="media reveal">
+            <figure class="ph ph-card"><img src="assets/projects/ufh.jpg" alt="ESPHome_UFH" loading="lazy" width="1280" height="640"></figure>
+          </div>
+        <div class="copy reveal">
+          <p class="kicker"><img src="img/badge-ufh.png" width="36" height="36" alt=""><span class="num">04</span><span class="pt">Piso radiante</span><span class="en">Underfloor heating</span> <span class="tag"><span class="pt">Novo</span><span class="en">New</span></span></p>
+          <h2 id="h-ufh" class="serif"><span class="pt">Cada zona. Um só cérebro. <em>O teu.</em></span><span class="en">Every zone. One brain. <em>Yours.</em></span></h2>
+          <p class="lead"><span class="pt">O piso radiante vivia preso a um controlador fechado. O ESPHome_UFH troca só o cérebro e continua a funcionar mesmo sem o Home Assistant.</span><span class="en">Underfloor heating used to be locked into a closed controller. ESPHome_UFH swaps only the brain and keeps working even without Home Assistant.</span></p>
+          <ul class="checks"><li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="pt">Waveshare ESP32-S3-ETH, com Ethernet e PoE</span><span class="en">Waveshare ESP32-S3-ETH, with Ethernet and PoE</span></li><li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="pt">Até 16 relés: zonas, bomba e pedido de calor</span><span class="en">Up to 16 relays: zones, pump and heat demand</span></li><li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="pt">Termóstatos no próprio aparelho</span><span class="en">Thermostats on the device itself</span></li></ul>
+          <p class="pname">ESPHome_UFH</p>
+          <div class="actions"><a class="btn" href="https://skydoy.github.io/ESPHome_UFH/" target="_blank" rel="noopener"><span class="pt">Instalar</span><span class="en">Install</span><span class="btn-ico"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="btn btn-ghost pt" href="https://skydoy.github.io/ESPHome_UFH/docs/pt/" target="_blank" rel="noopener">Documentação</a><a class="btn btn-ghost en" href="https://skydoy.github.io/ESPHome_UFH/docs/" target="_blank" rel="noopener">Documentation</a></div>
+        </div>
+      </section>
+      <section class="feature" id="opengauge" aria-labelledby="h-opengauge">
+        <div class="media reveal">
+            <figure class="ph ph-card"><img src="assets/projects/opengauge.jpg" alt="Open Gauge" loading="lazy" width="1280" height="640"></figure>
+          </div>
+        <div class="copy reveal">
+          <p class="kicker"><img src="img/badge-opengauge.png" width="36" height="36" alt=""><span class="num">05</span><span class="pt">Mostradores para o carro</span><span class="en">Car gauges</span> <span class="tag"><span class="pt">Bancada</span><span class="en">Bench</span></span></p>
+          <h2 id="h-opengauge" class="serif"><span class="pt">O carro também é teu. <em>E o que ele diz, também.</em></span><span class="en">The car is yours too. <em>And so is what it says.</em></span></h2>
+          <p class="lead"><span class="pt">Os dados do carro ficam escondidos atrás de um painel que não escolheste. O Open Gauge lê o barramento CAN, só em leitura, e mostra-os em mostradores digitais sem fios.</span><span class="en">Your car's data hides behind a dashboard you didn't choose. Open Gauge reads the CAN bus, read-only, and shows it on wireless digital gauges.</span></p>
+          <ul class="checks"><li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="pt">Gateway ESP32, CAN só de leitura</span><span class="en">ESP32 gateway, read-only CAN</span></li><li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="pt">Ecrã M5 Dial ou CrowPanel 1.28</span><span class="en">M5 Dial or CrowPanel 1.28 display</span></li><li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="pt">Em fase de bancada</span><span class="en">Bench stage</span></li></ul>
+          <p class="pname">Open Gauge</p>
+          <div class="actions"><a class="btn" href="https://skydoy.github.io/OpenGauge/" target="_blank" rel="noopener"><span class="pt">Instalar</span><span class="en">Install</span><span class="btn-ico"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="btn btn-ghost pt" href="https://skydoy.github.io/OpenGauge/docs/pt/" target="_blank" rel="noopener">Documentação</a><a class="btn btn-ghost en" href="https://skydoy.github.io/OpenGauge/docs/en/" target="_blank" rel="noopener">Documentation</a></div>
+        </div>
+      </section>
+
+    <section class="marquee" aria-label="sem nuvem, sem contas, sem subscrições, sem YAML, 100% local">
+      <div class="pt"><div class="marquee-track"><span>sem nuvem</span><i aria-hidden="true">✦</i><span>sem contas</span><i aria-hidden="true">✦</i><span>sem subscrições</span><i aria-hidden="true">✦</i><span>sem YAML</span><i aria-hidden="true">✦</i><span>100% local</span><i aria-hidden="true">✦</i><span>código aberto</span><i aria-hidden="true">✦</i><span>sem nuvem</span><i aria-hidden="true">✦</i><span>sem contas</span><i aria-hidden="true">✦</i><span>sem subscrições</span><i aria-hidden="true">✦</i><span>sem YAML</span><i aria-hidden="true">✦</i><span>100% local</span><i aria-hidden="true">✦</i><span>código aberto</span><i aria-hidden="true">✦</i></div></div>
+      <div class="en"><div class="marquee-track"><span>no cloud</span><i aria-hidden="true">✦</i><span>no accounts</span><i aria-hidden="true">✦</i><span>no subscriptions</span><i aria-hidden="true">✦</i><span>no YAML</span><i aria-hidden="true">✦</i><span>100% local</span><i aria-hidden="true">✦</i><span>open source</span><i aria-hidden="true">✦</i><span>no cloud</span><i aria-hidden="true">✦</i><span>no accounts</span><i aria-hidden="true">✦</i><span>no subscriptions</span><i aria-hidden="true">✦</i><span>no YAML</span><i aria-hidden="true">✦</i><span>100% local</span><i aria-hidden="true">✦</i><span>open source</span><i aria-hidden="true">✦</i></div></div>
+    </section>
+
+    <section class="how" id="como" aria-labelledby="h-como">
+      <h2 id="h-como" class="serif reveal"><span class="pt">Três passos. <em>Nenhuma</em> nuvem.</span><span class="en">Three steps. <em>No</em> cloud.</span></h2>
+      <ol class="steps">
+        <li class="reveal"><span class="step-n">1</span><h3><span class="pt">Escolhe o projeto</span><span class="en">Pick the project</span></h3><p><span class="pt">Abre o instalador do projeto no Chrome ou no Edge.</span><span class="en">Open the project's installer in Chrome or Edge.</span></p></li>
+        <li class="reveal"><span class="step-n">2</span><h3><span class="pt">Liga e instala</span><span class="en">Plug in and install</span></h3><p><span class="pt">Liga a placa por USB e carrega em Instalar. O firmware vai direto para o ESP.</span><span class="en">Plug the board in by USB and hit Install. The firmware goes straight onto the ESP.</span></p></li>
+        <li class="reveal"><span class="step-n">3</span><h3><span class="pt">Controla em casa</span><span class="en">Control it at home</span></h3><p><span class="pt">O aparelho aparece no Home Assistant e passa a responder só a ti.</span><span class="en">The device shows up in Home Assistant and answers only to you.</span></p></li>
+      </ol>
+    </section>
+
+    <section class="closer">
+      <div class="closer-card reveal">
+          <p class="serif"><span class="pt">Zero nuvens. Zero subscrições. <em>Cem por cento teu.</em></span><span class="en">Zero clouds. Zero subscriptions. <em>One hundred percent yours.</em></span></p>
+          <a class="btn" href="#projetos"><span class="pt">Escolher um projeto</span><span class="en">Choose a project</span><span class="btn-ico"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      </div>
+    </section>
+
+    <section class="faq" id="faq" aria-labelledby="h-faq">
+      <div class="faq-head reveal">
+        <h2 id="h-faq" class="serif"><span class="pt">Perguntas?</span><span class="en">Questions?</span></h2>
+        <p><span class="pt">O essencial antes de começares.</span><span class="en">The essentials before you start.</span></p>
+      </div>
+      <div class="faq-list">
+        <details class="qa reveal">
+          <summary><span class="pt">Preciso de saber programar?</span><span class="en">Do I need to know how to code?</span><span class="plus" aria-hidden="true"></span></summary>
+          <p><span class="pt">Não. O instalador corre no browser, no Chrome ou no Edge: ligas a placa por USB e carregas em Instalar. Não há YAML para escrever.</span><span class="en">No. The installer runs in your browser, Chrome or Edge: plug the board in by USB and hit Install. There is no YAML to write.</span></p>
+        </details>
+        <details class="qa reveal">
+          <summary><span class="pt">Funciona sem internet?</span><span class="en">Does it work without internet?</span><span class="plus" aria-hidden="true"></span></summary>
+          <p><span class="pt">Sim. Os aparelhos falam com o Home Assistant pela tua rede local. Nada tem de passar por servidores lá fora.</span><span class="en">Yes. The devices talk to Home Assistant over your local network. Nothing has to go through outside servers.</span></p>
+        </details>
+        <details class="qa reveal">
+          <summary><span class="pt">De que hardware preciso?</span><span class="en">What hardware do I need?</span><span class="plus" aria-hidden="true"></span></summary>
+          <p><span class="pt">Depende do projeto. Cada um indica a placa, as ligações e os modelos compatíveis na sua documentação.</span><span class="en">It depends on the project. Each one lists the board, the wiring and the compatible models in its documentation.</span></p>
+        </details>
+        <details class="qa reveal">
+          <summary><span class="pt">Posso usar os projetos à vontade?</span><span class="en">Can I use the projects freely?</span><span class="plus" aria-hidden="true"></span></summary>
+          <p><span class="pt">São gratuitos para uso pessoal. Cada repositório tem a sua licença, que diz o que podes e não podes fazer.</span><span class="en">They are free for personal use. Each repository has its own license, which says what you can and can't do.</span></p>
+        </details>
+        <details class="qa reveal">
+          <summary><span class="pt">E a loja?</span><span class="en">What about the shop?</span><span class="plus" aria-hidden="true"></span></summary>
+          <p><span class="pt">Está a caminho: kits montados por mim, prontos a instalar. Brevemente aqui.</span><span class="en">It's on the way: kits assembled by me, ready to install. Coming soon.</span></p>
+        </details>
+      </div>
+    </section>
+
+    <section class="shop" id="loja" aria-labelledby="h-shop">
+      <div class="shop-card reveal" role="status">
+        <p class="pill"><i aria-hidden="true"></i><span class="pt">Loja</span><span class="en">Shop</span></p>
+        <h2 id="h-shop" class="serif"><span class="pt">Loja <em>em breve</em></span><span class="en">Shop <em>coming soon</em></span></h2>
+        <p><span class="pt">Kits montados por mim, prontos a instalar. Brevemente aqui.</span><span class="en">Kits assembled by me, ready to install. Coming soon.</span></p>
       </div>
     </section>
   </main>
 
-  <footer class="wrap">
-    <p>
-      <span class="pt">Feito por <a href="https://github.com/skydoy" target="_blank" rel="noopener">skydoy</a> · org <a href="https://github.com/ESPManiacs" target="_blank" rel="noopener">ESPManiacs</a>. Firmware ESPHome com instalador web.</span>
-      <span class="en">Built by <a href="https://github.com/skydoy" target="_blank" rel="noopener">skydoy</a> · org <a href="https://github.com/ESPManiacs" target="_blank" rel="noopener">ESPManiacs</a>. ESPHome firmware with a web installer.</span>
-    </p>
-    <p class="support">
-      <span class="pt">Gostas? Ajuda-me a fazer algo ainda melhor:</span>
-      <span class="en">Like it? Help me build something better:</span>
-      <a href="https://ko-fi.com/skydoy" target="_blank" rel="noopener">☕ Ko-fi</a>
-      <a href="https://buymeacoffee.com/skydoy" target="_blank" rel="noopener">🍪 Buy Me a Coffee</a>
-    </p>
-  </footer>
+  <footer class="foot">
+    <div class="foot-in">
+      <div class="foot-brand">
+        <a class="brand" href="#top">
+          <img class="mark mark-light" src="img/logo/espmaniacs-mark-light.svg" width="30" height="30" alt="">
+          <img class="mark mark-dark" src="img/logo/espmaniacs-mark-dark.svg" width="30" height="30" alt="">
+          <strong>ESPManiacs</strong>
+        </a>
+        <p><span class="pt">Firmware ESPHome com instalador web. Feito por</span><span class="en">ESPHome firmware with a web installer. Built by</span> <a href="https://github.com/skydoy" target="_blank" rel="noopener">skydoy</a>.</p>
+      </div>
+      <div class="foot-col">
+        <p class="foot-k"><span class="pt">Projetos</span><span class="en">Projects</span></p>
+        <a href="https://skydoy.github.io/ESPHome_AC/" target="_blank" rel="noopener">ESPHome_AC</a><a href="https://skydoy.github.io/ESPHOME_Hunter/" target="_blank" rel="noopener">ESPHOME_Hunter</a><a href="https://skydoy.github.io/ESPHome_Altherma/" target="_blank" rel="noopener">ESPHome_Altherma</a><a href="https://skydoy.github.io/ESPHome_UFH/" target="_blank" rel="noopener">ESPHome_UFH</a><a href="https://skydoy.github.io/OpenGauge/" target="_blank" rel="noopener">Open Gauge</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-k"><span class="pt">Apoiar</span><span class="en">Support</span></p>
+        <a href="https://github.com/ESPManiacs" target="_blank" rel="noopener">GitHub · ESPManiacs</a>
+        <a href="https://ko-fi.com/skydoy" target="_blank" rel="noopener">Ko-fi</a>
+        <a href="https://buymeacoffee.com/skydoy" target="_blank" rel="noopener">Buy Me a Coffee</a>
+      </div>
+    </div>
+      </footer>
 
   <script src="js/main.js"></script>
 </body>

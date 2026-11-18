@@ -1,7 +1,9 @@
 (function () {
   const root = document.documentElement;
   const tbtn = document.getElementById('theme-toggle');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // ---------- language + theme ----------
   function themeLabel() {
     const dark = root.dataset.theme === 'dark';
     const pt = root.dataset.lang === 'pt';
@@ -12,7 +14,6 @@
     tbtn.setAttribute('aria-label', label);
     tbtn.title = label;
   }
-
   function setLang(l) {
     root.dataset.lang = l;
     root.lang = l;
@@ -22,18 +23,55 @@
     try { localStorage.setItem('lang', l); } catch (e) {}
     themeLabel();
   }
-
   document.querySelectorAll('.lang button[data-set]').forEach((b) => {
     b.addEventListener('click', () => setLang(b.dataset.set));
   });
-
   tbtn.addEventListener('click', () => {
     root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
     try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
     themeLabel();
   });
-
   let saved = null;
   try { saved = localStorage.getItem('lang'); } catch (e) {}
   setLang(saved || ((navigator.language || 'en').toLowerCase().startsWith('pt') ? 'pt' : 'en'));
+
+  // ---------- reveal on scroll ----------
+  const items = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !reduce) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    items.forEach((el) => io.observe(el));
+  } else {
+    items.forEach((el) => el.classList.add('in'));
+  }
+
+  // ---------- nav state, hero zoom, gentle parallax ----------
+  const nav = document.querySelector('.nav');
+  const zoom = document.querySelector('[data-zoom]');
+  const par = [...document.querySelectorAll('[data-parallax]')];
+  let ticking = false;
+  function onScroll() {
+    ticking = false;
+    nav.classList.toggle('scrolled', scrollY > 12);
+    if (reduce) return;
+    const vh = innerHeight;
+    if (zoom) {
+      const r = zoom.parentElement.getBoundingClientRect();
+      const t = Math.min(1, Math.max(0, 1 - r.top / vh));
+      zoom.style.transform = `scale(${1.14 - 0.14 * t})`;
+    }
+    par.forEach((img) => {
+      const r = img.parentElement.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > vh) return;
+      const t = (r.top + r.height / 2 - vh / 2) / vh; // -1..1
+      img.style.transform = `translateY(${(t * -6).toFixed(2)}%) scale(1.12)`;
+    });
+  }
+  function req() { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }
+  addEventListener('scroll', req, { passive: true });
+  addEventListener('resize', req);
+  onScroll();
 })();
