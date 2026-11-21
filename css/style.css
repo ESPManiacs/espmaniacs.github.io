@@ -390,3 +390,39 @@ html[data-theme=dark] .ph-card { box-shadow: 0 24px 60px rgba(0, 0, 0, .5), 0 0 
 /* dark mode: the Documentation button must keep light text */
 html[data-theme=dark] .btn-ghost { color: var(--ink); border-color: #3a4864; }
 html[data-theme=dark] .btn-ghost:hover { background: var(--bg-2); border-color: var(--blue); }
+
+/* ---------- GitHub button ---------- */
+.btn-gh { gap: .5rem; padding: .35rem 1.15rem; }
+.btn-gh svg { flex: none; }
+
+/* ---------- support ---------- */
+.support-sec { max-width: var(--wrap); margin: 0 auto; padding-bottom: 3rem; }
+.support-card {
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(1.6rem, 4vw, 3.5rem); align-items: center;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: clamp(1.8rem, 5vw, 3.4rem);
+}
+.support-copy h2 { margin: 0 0 .8rem; font-size: clamp(2.1rem, 4.2vw, 3.3rem); line-height: 1.08; }
+.support-copy > p:last-child { margin: 0; color: var(--muted); max-width: 34rem; }
+.support-actions { display: grid; gap: .75rem; }
+.pay {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.2rem; border-radius: 18px; text-decoration: none;
+  border: 1px solid var(--line); background: var(--bg);
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.pay:hover { transform: translateY(-2px); border-color: var(--blue); box-shadow: 0 10px 24px rgba(20,33,64,.1); }
+.pay span:last-child { display: flex; flex-direction: column; line-height: 1.25; }
+.pay b { font-size: 1.05rem; }
+.pay span:last-child span { color: var(--muted); font-size: .9rem; }
+.pay-ico { display: grid; place-items: center; flex: none; width: 2.8rem; height: 2.8rem; border-radius: 14px; font-size: 1.35rem; }
+.pay-kofi .pay-ico { background: #ff5e5b; }
+.pay-bmc .pay-ico { background: #ffdd00; }
+.pay-gh .pay-ico { background: var(--ink); color: var(--bg); }
+.pay-kofi { border-color: color-mix(in srgb, #ff5e5b 45%, var(--line)); }
+@media (max-width: 1000px) { .support-card { grid-template-columns: 1fr; } }
+
+/* support shortcuts at the top */
+.btn-support { gap: .5rem; border-color: color-mix(in srgb, #ff5e5b 50%, var(--line)); }
+.btn-support:hover { border-color: #ff5e5b; background: color-mix(in srgb, #ff5e5b 8%, transparent); }
+.links .nav-support { color: var(--blue); font-weight: 600; }
