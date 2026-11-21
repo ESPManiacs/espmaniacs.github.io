@@ -372,3 +372,21 @@ html[data-theme=dark] .ph-card { box-shadow: 0 24px 60px rgba(0, 0, 0, .5), 0 0 
   .hero .float-card { display: flex; gap: .8rem; justify-content: space-between; padding: .9rem 1rem; }
   .gal-track .ph-card { width: 78vw; }
 }
+
+/* ---------- versions ---------- */
+.ver {
+  display: inline-block; margin-left: .4rem; padding: .08rem .5rem;
+  border-radius: 999px; border: 1px solid var(--line);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: .78rem;
+  color: var(--blue); text-decoration: none; vertical-align: .05em;
+}
+.ver:hover { border-color: var(--blue); }
+.svc-ver {
+  display: inline-block; margin: -.1rem 0 .45rem;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: .78rem;
+  color: var(--blue);
+}
+
+/* dark mode: the Documentation button must keep light text */
+html[data-theme=dark] .btn-ghost { color: var(--ink); border-color: #3a4864; }
+html[data-theme=dark] .btn-ghost:hover { background: var(--bg-2); border-color: var(--blue); }

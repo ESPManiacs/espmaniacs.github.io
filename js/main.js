@@ -74,4 +74,29 @@
   addEventListener('scroll', req, { passive: true });
   addEventListener('resize', req);
   onScroll();
+
+  // ---------- live versions from GitHub releases ----------
+  // The page ships with the versions known at build time; this refreshes them
+  // (cached for an hour, so a visit costs at most one API call per project).
+  const verEls = document.querySelectorAll('[data-repo]');
+  const repos = [...new Set([...verEls].map((el) => el.dataset.repo))];
+  function showVersion(repo, tag) {
+    if (!tag) return;
+    document.querySelectorAll(`[data-repo="${repo}"]`).forEach((el) => { el.textContent = tag; });
+  }
+  repos.forEach((repo) => {
+    const key = 'ver:' + repo;
+    let cached = null;
+    try { cached = JSON.parse(localStorage.getItem(key) || 'null'); } catch (e) {}
+    if (cached && Date.now() - cached.t < 3600e3) { showVersion(repo, cached.v); return; }
+    fetch(`https://api.github.com/repos/skydoy/${repo}/releases?per_page=1`, { headers: { Accept: 'application/vnd.github+json' } })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((list) => {
+        const tag = list && list[0] && list[0].tag_name;
+        if (!tag) return;
+        showVersion(repo, tag);
+        try { localStorage.setItem(key, JSON.stringify({ v: tag, t: Date.now() })); } catch (e) {}
+      })
+      .catch(() => {});
+  });
 })();
